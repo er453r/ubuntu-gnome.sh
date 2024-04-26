@@ -1,18 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-sudo apt-get update
-sudo apt-get remove -y --purge ubuntu-session gnome-shell-extension-*
-sudo apt-get autoremove -y
-sudo apt-get install -y gnome-session gnome-backgrounds gnome-tweaks chrome-gnome-shell plymouth-theme-ubuntu-gnome-logo adwaita-qt -y
+if [ "$(id -u)" -ne 0 ]; then
+  echo Please run this script as root or using sudo!
+  exit
+fi
 
-sudo update-alternatives --config gdm3-theme.gresource
+apt-get update
+apt-get remove -y --purge ubuntu-session gnome-shell-extension-*
+apt-get autoremove -y
+apt-get install -y gnome-session gnome-backgrounds gnome-tweaks chrome-gnome-shell plymouth-theme-ubuntu-gnome-logo adwaita-qt -y
 
-# update /usr/share/xsessions/gnome.desktop to have
-# Exec=/usr/bin/gnome-session --session=gnome
+update-alternatives --config gdm3-theme.gresource
 
-# optional - to remove ubuntu logo
-# sudo mv /usr/share/plymouth/ubuntu-logo.png /usr/share/plymouth/ubuntu-logo.png.backup
+# remove ubuntu logo from login screen
+mv /usr/share/plymouth/ubuntu-logo.png /usr/share/plymouth/ubuntu-logo.png.backup
 
-# optional - to make QT aplications look good in dark mode
-# sudo echo QT_STYLE_OVERRIDE=Adwaita-Dark >> /etc/environment
-
+# optional - to make QT applications look good in dark mode
+echo QT_STYLE_OVERRIDE=Adwaita-Dark >> /etc/environment
