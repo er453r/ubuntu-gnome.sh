@@ -6,11 +6,13 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 apt-get update
-apt-get remove -y --purge ubuntu-session gnome-shell-extension-*
+apt-get remove -y --purge ubuntu-session gnome-shell-extension-* *yaru* plymouth-theme-*
 apt-get autoremove -y
-apt-get install -y gnome-session gnome-backgrounds gnome-tweaks chrome-gnome-shell plymouth-theme-ubuntu-gnome-logo adwaita-qt -y
+apt-get install -y gnome-session gnome-backgrounds gnome-tweaks chrome-gnome-shell plymouth-theme-ubuntu-gnome-logo adwaita-* -y
 
-update-alternatives --config gdm-theme.gresource
+# update default cursors and login screen
+update-alternatives --set x-cursor-theme /etc/X11/cursors/core.theme
+update-alternatives --set gdm-theme.gresource /usr/share/gnome-shell/gnome-shell-theme.gresource
 
 # remove ubuntu logo from login screen
 mv /usr/share/plymouth/ubuntu-logo.png /usr/share/plymouth/ubuntu-logo.png.backup
