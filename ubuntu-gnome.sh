@@ -22,3 +22,5 @@ echo QT_STYLE_OVERRIDE=Adwaita-Dark >> /etc/environment
 
 # in gnome tweaks change legacy theme to adwaita dark
 # GDM login theme cannot be changed
+
+# machinectl shell gdm@ $(which gsettings) set org.gnome.desktop.interface accent-color "red"
